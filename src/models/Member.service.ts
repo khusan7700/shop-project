@@ -2,6 +2,7 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 import { LoginInput, Member, MemberInput } from "../libs/types/member";
 import MemberModel from "../schema/Member.model";
 import { MemberType } from "../libs/enums/member.enum";
+import * as bcrypt from "bcryptjs";
 
 class MemberService {
   private readonly memberModel;
@@ -18,6 +19,9 @@ class MemberService {
       .exec();
 
     if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
+    const salt = await bcrypt.genSalt();
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
     try {
       const result = await this.memberModel.create(input);
@@ -39,14 +43,16 @@ class MemberService {
 
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
 
-    const isMatch = input.memberPassword === member.memberPassword;
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword
+    );
 
     if (!isMatch) {
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
     }
 
     const result = await this.memberModel.findById(member._id).exec();
-    console.log(result);
     console.log("Login process completed successfully.");
     return result as unknown as Member;
   }
