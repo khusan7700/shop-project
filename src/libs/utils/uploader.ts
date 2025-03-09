@@ -3,7 +3,7 @@ import multer from "multer"; //rasm yukash pakej
 import { v4 } from "uuid"; //nomini serial qilib beradi
 
 // MULTER IMAGE UPLOADER
-function getTargetImageStrorage(address: any) {
+function getTargetImageStorage(address: any) {
   return multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, `./uploads/${address}`);
@@ -17,7 +17,7 @@ function getTargetImageStrorage(address: any) {
 }
 
 const makeUploader = (address: string) => {
-  const storage = getTargetImageStrorage(address);
+  const storage = getTargetImageStorage(address);
   return multer({ storage: storage });
 };
 
