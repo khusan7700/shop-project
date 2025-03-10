@@ -8,17 +8,22 @@ import ProductService from "../models/Product.service";
 const productController: T = {};
 
 const productService = new ProductService();
+// --------------------------------------------------------------------------
 
-productController.getAllProducts = async (req: Response, res: Response) => {
+productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
-    res.render("products");
+    const data = await productService.getAllProducts();
+
+    res.render("Products", { products: data });
   } catch (err) {
     console.log("Error, getAllProduct:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
+
+// --------------------------------------------------------------------------
 
 productController.createNewProduct = async (
   req: AdminRequest,
@@ -50,6 +55,8 @@ productController.createNewProduct = async (
   }
 };
 
+// --------------------------------------------------------------------------
+
 productController.updateChosenProduct = async (req: Request, res: Response) => {
   try {
     console.log("updateChosenProduct");
@@ -65,4 +72,5 @@ productController.updateChosenProduct = async (req: Request, res: Response) => {
   }
 };
 
+// --------------------------------------------------------------------------
 export default productController;
