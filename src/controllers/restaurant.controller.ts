@@ -59,7 +59,8 @@ restaurantController.processLogin = async (
     console.log("👤--memberNick--👤", req.session.member.memberNick);
     req.session.save(function () {
       res.send(result);
-      // res.redirect("/admin/product/all");
+      // todo
+      // res.redirect("/admin/product/all"); getProducts memberService yarangat comentdan olish kk
     });
   } catch (err) {
     console.log("Error, getLogin", err);
@@ -93,7 +94,8 @@ restaurantController.processSignup = async (
     console.log("👤--memberNick--👤", req.session.member.memberNick);
     req.session.save(function () {
       res.send(result);
-      // res.redirect("/admin/product/all");
+      // todo
+      // res.redirect("/admin/product/all"); getProducts memberService yarangat comentdan olish kk
     });
   } catch (err) {
     console.log("Error, processSignup:", err);
@@ -112,7 +114,6 @@ restaurantController.checkAuthSession = async (
   res: Response
 ) => {
   try {
-    console.log("checkAuthSession");
     if (req.session?.member)
       res.send(
         `<script> alert("Hi ${req.session.member.memberNick}")</script>`
@@ -147,7 +148,6 @@ restaurantController.verifyRestaurant = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("verifyRestaurant");
   if (req.session?.member?.memberType === MemberType.RESTAURANT) {
     req.member = req.session.member;
     next();

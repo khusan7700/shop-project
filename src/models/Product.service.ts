@@ -4,44 +4,28 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 
 import { Request, Response } from "express";
 import { Member, MemberInput, LoginInput } from "../libs/types/member";
+import { ProductInput } from "../libs/types/product";
+import { Product } from "../libs/types/product";
 
 class ProductService {
   private readonly productModel;
+
   constructor() {
     this.productModel = ProductModel;
+  }
 
-    const productService = new ProductService();
-    const productController: T = {};
+  // SPA--------------------------------------------------------------------------
 
-    productController.getAllProducts = async (req: Request, res: Response) => {
-      try {
-        console.log("getAllProducts");
-        res.render("products");
-      } catch (err) {
-        console.log("Error, getAllProducts:", err);
-        const message =
-          err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
-        res.send(
-          `<script> alert("${message}"); window.location.replace("admin/signup")</script>`
-        );
-      }
-    };
+  // SSR--------------------------------------------------------------------------
+  public async createNewProduct(input: ProductInput): Promise<Product[]> {
+    try {
+      const result = await this.productModel.create(input);
 
-    productController.createNewProduct = async (
-      req: Request,
-      res: Response
-    ) => {
-      try {
-        console.log("createNewProduct");
-      } catch (err) {
-        console.log("Error, createNewProduct:", err);
-        const message =
-          err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
-        res.send(
-          `<script> alert("${message}"); window.location.replace("admin/signup")</script>`
-        );
-      }
-    };
+      return result as unknown as Product[];
+    } catch (err) {
+      console.log("ERROR, model:createNewProduct:", err);
+      throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+    }
   }
 }
 export default ProductService;
