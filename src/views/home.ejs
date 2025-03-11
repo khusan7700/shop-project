@@ -1,18 +1,77 @@
 <%- include('includes/header') %>
-<body>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Signup</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Productions</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" aria-disabled="true">Settings</a>
-    </li>
-  </ul>
+
+<link rel="stylesheet" type="text/css" href="/css/home.css" />
+<body class="vh-100 overflow-hidden">
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+    <div class="container">
+      <a class="navbar-brand fs-4" href="#">Halal Station</a>
+      <button
+        class="navbar-toggler shadow-none border-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="sidebar offcanvas offcanvas-end text-bg-dark"
+        tabindex="-1"
+        id="offcanvasDarkNavbar"
+        aria-labelledby="offcanvasDarkNavbarLabel"
+      >
+        <div class="offcanvas-header text-white border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Setting</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white shadow-none"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-row p-4">
+          <ul
+            class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3"
+          >
+            <li class="nav-item"></li>
+
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/admin">Home</a>
+            </li>
+            <% if(!member) { %>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/admin/singup">Signup</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/admin/login">Login</a>
+            </li>
+            <% } else { %>
+
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/admin/product/all">Menu</a>
+            </li>
+
+            <li class="nav-item mx-2">
+              <a class="nav-link" href="/admin/user/all">Users</a>
+            </li>
+            <a
+              class="text-white text-decoration-none px-3 py-0.1 rounded-4"
+              style="background-color: rgb(26, 26, 87)"
+              href="/admin/logout"
+              >Logout</a
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <maim>
+    <section class="2-100 vh-100 d-flex flex-column justify-content-center align-items-center text-white fs-1">
+        <h1 style="font-size: 1.3em;">HAVE A NICE</h1>
+        <h1 style="font-size: 1.5em;">Day</h1>
+    </section>
+  </maim>
 </body>
 <%- include('includes/footer') %>

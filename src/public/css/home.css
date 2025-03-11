@@ -1,0 +1,93 @@
+/* .home-container {
+  width: 1300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border: 0.5px solid rgb(57, 61, 137);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  border: 0.5px solid rgb(57, 61, 137);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+}
+.navigation-menu {
+  padding-top: 30px;
+}
+
+.home-container a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.home-container .nav-item a {
+  color: #ffffff;
+}
+
+.home-container .nav-item a.disabled {
+  color: #898071;
+  border: 2px solid blue;
+}
+
+.home-container .navigation-menu {
+  position: relative;
+  z-index: 10000;
+  color: #efefee;
+  font-size: 40px;
+  font-family: monospace;
+}
+
+.text-server {
+  position: absolute;
+  bottom: 50px;
+  left: 630px;
+  color: white;
+  font-size: 22px;
+  animation: textAni 2s linear infinite;
+}
+@media (max-width: 390px) {
+  .home-container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("/img/seoul.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 115%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    border: 0.5px solid rgb(57, 61, 137);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  .home-container .nav-item a {
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .home-container .navigation-menu {
+    position: relative;
+    z-index: 10000;
+    color: #efefee;
+    font-size: 30px;
+    font-family: monospace;
+  }
+}
+ */

@@ -1,0 +1,40 @@
+body {
+  background: url(../img/moon2.webp);
+  background-blend-mode: multiply;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 991px) {
+  .sidebar {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(50px);
+  }
+}
+
+/* html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(46, 46, 46);
+  display: flex;
+  justify-content: center;
+}
+img {
+  background-position: 100%;
+}
+
+@media (max-width: 390px) {
+  body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("/src/public/img/seoul.webp");
+    display: flex;
+    justify-content: center;
+  }
+} */

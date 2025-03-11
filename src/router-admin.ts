@@ -49,7 +49,7 @@ routerAdmin.get(
   restaurantController.getUsers
 );
 
-routerAdmin.get(
+routerAdmin.post(
   "/user/edit",
   restaurantController.verifyRestaurant,
   restaurantController.updateChosenUser
