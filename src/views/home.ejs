@@ -7,7 +7,7 @@
     <div class="container">
       <a class="navbar-brand fs-4" href="#">Halal Station</a>
       <button
-        class="navbar-toggler shadow-none border-0"
+        class="navbar-toggler shadow-none border-0 background"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasDarkNavbar"
@@ -16,13 +16,16 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!-- sidebar -->
+
       <div
-        class="sidebar offcanvas offcanvas-end text-bg-dark"
+        class="sidebar offcanvas offcanvas-end text-bg-dark bg-blur"
         tabindex="-1"
         id="offcanvasDarkNavbar"
         aria-labelledby="offcanvasDarkNavbarLabel"
       >
-        <div class="offcanvas-header text-white border-bottom">
+      <!-- sidebar header -->
+        <div id="sidebar" class="sidebar offcanvas-header text-white border-bottom">
           <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Setting</h5>
           <button
             type="button"
@@ -40,14 +43,14 @@
             <li class="nav-item mx-2">
               <a class="nav-link" href="/admin">Home</a>
             </li>
-            <% if(!member) { %>
+           
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/admin/singup">Signup</a>
+              <a class="nav-link" href="/admin/signup">Signup</a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link" href="/admin/login">Login</a>
             </li>
-            <% } else { %>
+         
 
             <li class="nav-item mx-2">
               <a class="nav-link" href="/admin/product/all">Menu</a>
@@ -61,7 +64,7 @@
               style="background-color: rgb(26, 26, 87)"
               href="/admin/logout"
               >Logout</a
-            <% } %>
+            
           </ul>
         </div>
       </div>

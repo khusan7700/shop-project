@@ -10,16 +10,19 @@ const productController: T = {};
 const productService = new ProductService();
 // --------------------------------------------------------------------------
 
-productController.getAllProducts = async (req: Request, res: Response) => {
+productController.getAllProducts = async (req: AdminRequest, res: Response) => {
   try {
     console.log("getAllProducts");
-    const data = await productService.getAllProducts();
 
-    res.render("Products", { products: data });
+    const data = await productService.getAllProducts();
+    res.render("products", { products: data });
   } catch (err) {
-    console.log("Error, getAllProduct:", err);
-    if (err instanceof Errors) res.status(err.code).json(err);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    console.log("Error, getAllProducts:", err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.location.replace("/admin/signup")</script>`
+    );
   }
 };
 

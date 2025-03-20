@@ -2,6 +2,35 @@
 
 <link rel="stylesheet" type="text/css" href="/css/login.css" />
 
-<body></body>
+<body class="vh-100 overflow-hidden">
+  <div class="body">
+    <form class="login-container" action="/admin/login" method="POST">
+      <h1>Login</h1>
+      <div class="input-group">
+        <label for="restaurant">Restaurant *</label>
+        <input
+          type="text"
+          id="restaurant"
+          name="memberNick"
+          placeholder="Username"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="password">Password *</label>
+        <input
+          type="password"
+          id="password"
+          name="memberPassword"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <button class="login-btn" type="submit">Login</button>
+      <p>Not registered yet? <a href="/admin/signup">Signup</a></p>
+      <p>Go back <a href="/admin">Home</a></p>
+    </form>
+  </div>
+</body>
 
 <%- include('includes/footer') %>

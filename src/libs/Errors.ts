@@ -22,6 +22,8 @@ export enum Message {
   WRONG_PASSWORD = "Wrong password intered, please tyr again!",
   NOT_AITHENTICAATED = "You are not authenticated, Please login first!",
   THAT_RESTAURANT_ALREADY_HAVE = "Than restaurant already have",
+
+  PROBLEM_ON_PROCESS_SIGNUP_FILE = "Problem on process signup file",
 }
 
 class Errors extends Error {
