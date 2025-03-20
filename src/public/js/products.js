@@ -16,7 +16,7 @@ $(function () {
 
   $("#process-btn").on("click", () => {
     $(".dish-container").slideToggle(500);
-    $("#process-btn").css("display", "none");
+    $("#process-btn").css();
   });
 
   $("#cancel-btn").on("click", () => {
