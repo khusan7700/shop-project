@@ -8,6 +8,8 @@ import Errors from "../libs/Errors";
 const memberService = new MemberService();
 const memberController: T = {};
 
+//---------------------------------------------------------------------------------
+
 memberController.signup = async (req: Request, res: Response) => {
   try {
     const input: MemberInput = req.body,
@@ -20,6 +22,8 @@ memberController.signup = async (req: Request, res: Response) => {
     else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
+
+//---------------------------------------------------------------------------------
 
 memberController.login = async (req: Request, res: Response) => {
   try {
