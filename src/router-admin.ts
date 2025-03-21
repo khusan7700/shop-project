@@ -45,7 +45,7 @@ routerAdmin.post(
 // USERS
 
 routerAdmin.get(
-  "/user",
+  "/user/all",
   restaurantController.verifyRestaurant,
   restaurantController.getUsers
 );

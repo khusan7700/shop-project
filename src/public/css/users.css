@@ -1,31 +1,34 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+html,
 body {
-  background-image: url(../img/login-page.jpg.webp);
+  background: url(../img/moon2.webp);
+  background-blend-mode: multiply;
+  background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
+
 .users-container {
   position: relative;
-  width: auto;
-  height: auto;
-  min-width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(-45deg, #110303bf, #2c1544, #011c1aba, #968383);
+  font-family: "Arial", sans-serif;
+  color: white;
 }
 
 .users-container a {
+  color: #8e8b8b;
   text-decoration: none;
-  color: #000000;
+  transition: color 0.3s ease;
 }
 
 .users-container .nav-item a {
-  color: #ffffff;
+  color: #8e8b8b;
+}
+.users-container a:hover {
+  color: #0077cc;
 }
 
 .users-container .nav-item a.disabled {
@@ -33,29 +36,40 @@ body {
 }
 
 .users-container .navigation-menu {
-  position: absolute;
-  z-index: 10000;
-  top: 1%;
-  color: #efefee;
-  font-size: 40px;
-  font-family: monospace;
-}
-
-.users-container .users-frame {
-  position: relative;
-  padding-bottom: 80px;
-  width: 100%;
+  width: auto;
   height: auto;
-
+  position: fixed;
+  top: 3%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.users-container .users-frame .board {
+.users-container .users-frame {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.board {
+  background: rgba(73, 73, 73, 0.4); /* Qizil rang, lekin shaffof */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px); /* Orqa fonni blur qiladi */
+  -webkit-backdrop-filter: blur(10px); /* Safari uchun */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Yorqinlik hissi uchun chiroyli border */
   position: relative;
   margin-top: 100px;
-  width: 1320px;
+  width: auto;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -73,13 +87,8 @@ body {
 }
 
 .users-container .board .user-table {
-  position: relative;
-  width: 85%;
-  height: auto;
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .users-container .header-name {
@@ -112,8 +121,124 @@ body {
   color: #4f547b;
 }
 
+.users-container .board .user-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Ustunlar bir xil o‘lchamda bo‘lsin */
+  word-wrap: break-word; /* Matn to‘g‘ri ajralsin */
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .users-container table td,
 table th {
+  border: 1px solid #787878;
+  padding: 8px;
   text-align: center;
-  vertical-align: middle;
+  background-color: #454f7c;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .users-container {
+    padding: 30px 15px;
+  }
+
+  .users-container .navigation-menu {
+    top: 5%;
+    font-size: 20px;
+    flex-direction: column;
+    padding: 10px;
+    width: 90%;
+  }
+
+  .users-container .nav-item {
+    margin: 5px 0;
+  }
+
+  .users-container .users-frame {
+    margin-top: 100px;
+    padding: 0 10px;
+  }
+
+  .board {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    font-size: 24px;
+  }
+
+  .users-container .board .dishes-table {
+    margin-top: 20px;
+  }
+
+  .users-container .header-name {
+    font-size: 24px;
+  }
+
+  .users-container .spec-select {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .users-container table td,
+  .users-container table th {
+    padding: 2px;
+    font-size: 14px;
+  }
+}
+
+/* iPhone va kichik ekranlar uchun */
+@media (max-width: 600px) {
+  .users-container {
+    padding: 20px 10px;
+  }
+
+  .users-container .navigation-menu {
+    top: 6%;
+    font-size: 18px;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .users-container .nav-item {
+    margin: 4px 0;
+  }
+
+  .users-container .users-frame {
+    margin-top: 90px;
+    padding: 0 5px;
+  }
+
+  .board {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+  }
+
+  .users-container .header-name {
+    font-size: 20px;
+  }
+
+  .users-container .spec-select {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .users-container table td,
+  .users-container table th {
+    padding: 1px;
+    font-size: 12px;
+  }
+
+  .users-container .board .dishes-table {
+    overflow-x: auto;
+  }
+
+  .users-container .board .user-table {
+    min-width: 300px;
+  }
 }

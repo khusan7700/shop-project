@@ -8,7 +8,7 @@
     <div class="navigation-menu">
       <ul class="nav justify-content-center">
         <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link active" href="/admin/">Home</a>
+          <a class="nav-link active" href="/admin">Home</a>
         </li>
         <li class="nav-item" style="cursor: pointer">
           <a class="nav-link" href="/admin/signup">SignUp</a>
@@ -24,26 +24,26 @@
     </div>
 
     <% } else { %>
-    <div class="navigation-menu">
-      <ul class="nav justify-content-center">
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link active" href="/admin/">Home</a>
-        </li>
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link" href="/admin/product/all">Menu</a>
-        </li>
-        <li class="nav-item" style="cursor: pointer">
-          <a class="nav-link" href="/admin/user/all">Users</a>
-        </li>
-        <li
-          class="nav-item"
-          style="cursor: pointer"
-          onclick="return confirm('Do you really want to logout?')"
-        >
-          <a class="nav-link" href="/admin/logout">Logout</a>
-        </li>
-      </ul>
-    </div>
+      <div class="navigation-menu">
+        <ul class="nav justify-content-center">
+          <li class="nav-item" style="cursor: pointer">
+            <a class="nav-link active" href="/admin/">Home</a>
+          </li>
+          <li class="nav-item" style="cursor: pointer">
+            <a class="nav-link" href="/admin/product/all">Menu</a>
+          </li>
+          <li class="nav-item" style="cursor: pointer">
+            <a class="nav-link" href="/admin/user/all">Users</a>
+          </li>
+          <li
+            class="nav-item"
+            style="cursor: pointer"
+            onclick="return confirm('Do you want to logout?')"
+          >
+            <a class="nav-link" href="/admin/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
 
     <div class="users-frame">
       <div class="board">
@@ -61,7 +61,7 @@
               </tr>
             </thead>
             <!--  LOOP PRODUCTS: START  -->
-            <% users.map(function(value, index ) { %>
+            <% users.map((value, index) => {%>
 
               <tbody style="background: white">
                 <td><%=index+1%></td>

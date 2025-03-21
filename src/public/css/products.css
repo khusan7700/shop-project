@@ -67,10 +67,6 @@ body {
   border-collapse: collapse;
 }
 
-.tabel .table-bordered {
-  background-color: red;
-}
-
 .dishes-table th,
 .dishes-table td {
   border: 1px solid #787878;
