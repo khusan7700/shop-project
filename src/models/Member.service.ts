@@ -17,11 +17,12 @@ class MemberService {
     this.memberModel = MemberModel;
   }
   // -----------------------------SPA----------------------------------------//
+  // -----------------------------signup----------------------------------------//
   public async signup(input: MemberInput): Promise<Member> {
     const salt = await bcryptjs.genSalt();
     input.memberPassword = await bcryptjs.hash(input.memberPassword, salt);
     console.log(
-      "create new member memberNick name is ----->",
+      "\x1b[33mCREATE new signup memberNick name is ----->\x1b[0m",
       input.memberNick
     );
 
@@ -36,7 +37,7 @@ class MemberService {
     }
   }
 
-  //---------------------------------------------------------------------------------
+  //----------------------------------login-----------------------------------------------
 
   public async login(input: LoginInput): Promise<Member> {
     const member = await this.memberModel
@@ -48,7 +49,10 @@ class MemberService {
         { memberNick: 1, memberPassword: 1, memberStatus: 1 }
       )
       .exec();
-    console.log("LOGIN memberNick name is ----->", input.memberNick);
+    console.log(
+      "\x1b[33mLOGIN memberNick name is ----->\x1b[0m",
+      input.memberNick
+    );
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
     else if (member.memberStatus === MemberStatus.BLOCK) {
       throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
@@ -67,7 +71,21 @@ class MemberService {
     console.log("Login process entered successfully.");
     return result as unknown as Member;
   }
+
+  //------------------------------getMemberDetail---------------------------------------//
+
+  public async getMemberDetail(member: Member): Promise<Member> {
+    const memberId = shapeIntoMongooseObjectId(member._id);
+    const result = await this.memberModel
+      .findOne({ _id: memberId, memberStatus: MemberStatus.ACTIVE })
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    return result as unknown as Member;
+  }
+
   //------------------------------SSR---------------------------------------//
+  //------------------------------processSignup---------------------------------------//
 
   public async processSignup(input: MemberInput): Promise<Member> {
     const exist = await this.memberModel
@@ -91,7 +109,7 @@ class MemberService {
     }
   }
 
-  //---------------------------------------------------------------------------------
+  //----------------------------------processLogin-----------------------------------------------
 
   public async processLogin(input: LoginInput): Promise<Member> {
     const member = await this.memberModel
@@ -117,7 +135,7 @@ class MemberService {
     return result as unknown as Member;
   }
 
-  //---------------------------------------------------------------------------------
+  //--------------------------------------getUsers-------------------------------------------
 
   public async getUsers(): Promise<Member[]> {
     const result = await this.memberModel
@@ -130,7 +148,7 @@ class MemberService {
     return result as unknown as Member[];
   }
 
-  //---------------------------------------------------------------------------------
+  //-----------------------------------updateChosenUser----------------------------------------------
 
   public async updateChosenUser(input: MemberUpdateInput): Promise<Member> {
     input._id = shapeIntoMongooseObjectId(input._id);
