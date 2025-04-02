@@ -20,6 +20,10 @@ class MemberService {
   public async signup(input: MemberInput): Promise<Member> {
     const salt = await bcryptjs.genSalt();
     input.memberPassword = await bcryptjs.hash(input.memberPassword, salt);
+    console.log(
+      "create new member memberNick name is ----->",
+      input.memberNick
+    );
 
     try {
       const result = await this.memberModel.create(input);
@@ -44,6 +48,7 @@ class MemberService {
         { memberNick: 1, memberPassword: 1, memberStatus: 1 }
       )
       .exec();
+    console.log("LOGIN memberNick name is ----->", input.memberNick);
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
     else if (member.memberStatus === MemberStatus.BLOCK) {
       throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
