@@ -99,6 +99,40 @@ class MemberService {
     return result as unknown as Member;
   }
 
+  //------------------------------getTopUsers---------------------------------------//
+
+  public async getTopUsers(): Promise<Member[]> {
+    const result = await this.memberModel
+      .find({
+        memberStatus: MemberStatus.ACTIVE,
+        memberPoints: { $gte: 1 },
+      })
+      .sort({ memberPoints: -1 })
+      .limit(6)
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result as unknown as Member[];
+  }
+
+  //------------------------------addUserPoint---------------------------------------//
+
+  public async addUserPoint(member: Member, point: Number): Promise<Member> {
+    const memberId = shapeIntoMongooseObjectId(member._id);
+
+    return this.memberModel.findOneAndUpdate(
+      {
+        _id: memberId,
+        memberType: MemberType.USER,
+        memberStatus: MemberStatus.ACTIVE,
+      },
+      // { memberPoints: { $inc: 1 } },
+      { $inc: { memberPoints: point } },
+      { new: true }
+    ) as unknown as Member;
+  }
+
   //------------------------------SSR---------------------------------------//
   //------------------------------processSignup---------------------------------------//
 
