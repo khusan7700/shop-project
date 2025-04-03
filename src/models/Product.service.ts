@@ -4,19 +4,94 @@ import Errors, { HttpCode, Message } from "../libs/Errors";
 
 import { Request, Response } from "express";
 import { Member, MemberInput, LoginInput } from "../libs/types/member";
-import { ProductInput } from "../libs/types/product";
+import { ProductInput, ProductInquiry } from "../libs/types/product";
 import { Product, ProductUpdateInput } from "../libs/types/product";
 import { shapeIntoMongooseObjectId } from "../libs/config";
+import { ProductStatus } from "../libs/enums/product.enum";
+import { ObjectId } from "mongoose";
+import { ViewInput } from "../libs/types/view";
+import { ViewGroup } from "../libs/enums/view.enum";
+import ViewService from "./View.service";
 
 class ProductService {
   private readonly productModel;
+  private readonly viewService;
 
   constructor() {
     this.productModel = ProductModel;
+    this.viewService = new ViewService();
   }
 
   // SPA--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
+  public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
+    const match: T = { productStatus: ProductStatus.PROCESS };
+
+    if (inquiry.productCollection)
+      match.productCollection = inquiry.productCollection;
+    if (inquiry.search)
+      match.productName = { $regex: new RegExp(inquiry.search, "i") };
+
+    const sort: T =
+      inquiry.order === "productPrice"
+        ? { [inquiry.order]: 1 }
+        : { [inquiry.order]: -1 };
+
+    const result = await this.productModel
+      .aggregate([
+        { $match: match },
+        { $sort: sort },
+        { $skip: (inquiry.page * 1 - 1) * inquiry.limit },
+        { $limit: inquiry.limit * 1 },
+      ])
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result as unknown as Product[];
+  }
+
+  // --------------------------------------------------------------------------
+
+  public async getProduct(
+    memberId: ObjectId | null,
+    id: String
+  ): Promise<Product> {
+    const productId = shapeIntoMongooseObjectId(id);
+
+    let result = await this.productModel
+      .findOne({ _id: productId, productStatus: ProductStatus.PROCESS })
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    if (memberId) {
+      // check View Log existence
+      const input: ViewInput = {
+        memberId: memberId,
+        viewGroup: ViewGroup.PRODUCT,
+        viewRefId: productId,
+      };
+      const existView = await this.viewService.checkViewExistence(input);
+
+      // Insert View
+      if (!existView) {
+        await this.viewService.insertMemberView(input);
+
+        // Increase Counts
+        result = await this.productModel
+          .findByIdAndUpdate(
+            productId,
+            { $inc: { productViews: +1 } },
+            { new: true }
+          )
+          .exec();
+      }
+    }
+
+    return result as unknown as Product;
+  }
   // SSR--------------------------------------------------------------------------
   public async getAllProducts(): Promise<Product> {
     const result = await this.productModel.find().exec();

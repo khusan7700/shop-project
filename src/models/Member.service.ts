@@ -17,6 +17,19 @@ class MemberService {
     this.memberModel = MemberModel;
   }
   // -----------------------------SPA----------------------------------------//
+  // -----------------------------getRestaurant----------------------------------------//
+
+  public async getRestaurant(): Promise<Member> {
+    const result = await this.memberModel
+      .findOne({ memberType: MemberType.RESTAURANT })
+      .lean()
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result as unknown as Member;
+  }
+
   // -----------------------------signup----------------------------------------//
   public async signup(input: MemberInput): Promise<Member> {
     const salt = await bcryptjs.genSalt();
