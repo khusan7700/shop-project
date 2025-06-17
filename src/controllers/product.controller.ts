@@ -88,15 +88,14 @@ productController.createNewProduct = async (
 
     const data: ProductInput = req.body;
     data.productImages = req.files.map((ele) => {
-      return ele.path.replace(/\\/g, "/");
+      return ele.path ? ele.path.replace(/\\/g, "/") : "";
     });
 
     console.log(`creating member is ${req.member.memberNick} \n `, data);
 
     await productService.createNewProduct(data);
     res.send(
-      `<script> alart("Successfully creation!");
-       window.location.replace('/admin/product/all')</script>`
+      `<script> alert("Sucessful creation!"); window.location.replace('/admin/product/all')</script>`
     );
   } catch (err) {
     console.log("Error, createNewProduct:", err);
