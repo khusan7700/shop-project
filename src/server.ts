@@ -1,8 +1,12 @@
+console.log("Bismillah");
 import dotenv from "dotenv";
-dotenv.config();
-
+dotenv.config({
+  path: process.env.NODE_ENV === "production" ? ".env.production" : ".env",
+});
 import mongoose from "mongoose";
 import app from "./app";
+
+console.log("The server has started.");
 
 mongoose.set("strictQuery", false);
 
