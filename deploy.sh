@@ -1,13 +1,13 @@
 # #!/bin/bash
 
 # PRODUCTION
-# git reset --hard
-# git checkout master
-# git pull origin master
+git reset --hard
+git checkout master
+git pull origin master
 
-# npm i
-# npm run build
-# pm2 start process.config.js --env production
+npm i
+npm run build
+pm2 start process.config.js --env production
 
 # DEVELOPMENT
 # git reset --hard
@@ -15,4 +15,6 @@
 # git pull origin develop
 
 # npm i
-# pm2 start"npm run start:dev" --name=BlisfullBites
+# pm2 start"npm run start:dev" --name=Kebab
+
+# ESLATMA ---> deploy.sh ni mod ni o'zgartirish kerak. terminalga chmod +x deploy.sh yozish kifoya
