@@ -47,7 +47,7 @@ router.get(
   orderController.getMyOrders
 );
 router.post(
-  "/order/update/",
+  "/order/update",
   memberController.verifyAuth,
   orderController.updateOrder
 );
